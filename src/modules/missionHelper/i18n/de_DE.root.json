@@ -18,6 +18,23 @@
 			"text": "Wasserbedarf: {n} L."
 		}
 	},
+	"noBuildingRequirements": {
+		"thw_gkw_count": {
+			"badge": true,
+			"in": "prerequisites",
+			"text": "Technischer Zug | Technische Züge"
+		},
+		"thw_zugtrupp_count": {
+			"badge": true,
+			"in": "prerequisites",
+			"text": "Zugtrupp"
+		},
+		"thw_fg_raeumen_count": {
+			"badge": true,
+			"in": "prerequisites",
+			"text": "Fachgruppe Räumen"
+		}
+	},
 	"settings": {
 		"bucket_only_if_needed": {
 			"description": "Zeigt an, wenn der Außenlastbehälter nur gefordert wird, wenn vorhanden.",

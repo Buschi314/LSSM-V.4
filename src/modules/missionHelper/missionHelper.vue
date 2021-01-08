@@ -285,6 +285,33 @@
                     )
                 }}
             </span>
+            <ul v-if="specialRequirementsBuilding.nonbadge.length">
+                <li
+                    v-for="req in specialRequirementsBuilding.nonbadge"
+                    :key="req"
+                    :amount="
+                        (amount =
+                            missionSpecs[$m(`noBuildingRequirements.${req}.in`)][
+                                req
+                            ])
+                    "
+                    :data-amount="amount"
+                >
+                    {{ $mc(`noBuildingRequirements.${req}.text`, amount) }}
+                </li>
+            </ul>
+            <span
+                class="badge badge-default"
+                v-for="req in specialRequirementsBuilding.badge"
+                :key="req"
+            >
+                {{
+                    $mc(
+                        `noBuildingRequirements.${req}.text`,
+                        missionSpecs[$m(`noBuildingRequirements.${req}.in`)][req]
+                    )
+                }}
+            </span>
             <br />
             <span
                 v-if="settings.credits && missionSpecs.average_credits"
@@ -497,10 +524,14 @@ export default Vue.extend<
                 hide_battalion_chief_vehicles: false,
                 bike_police_only_if_needed: false,
                 noVehicleRequirements: [],
+                noBuildingRequirements: [],
             },
             noVehicleRequirements: Object.keys(
                 this.$m('noVehicleRequirements')
             ),
+            noBuildingRequirements: Object.keys( 
+                this.$m('noBuildingRequirements') ),
+
             drag: {
                 active: false,
                 top: 60,
@@ -551,6 +582,26 @@ export default Vue.extend<
                 nonbadge: string[];
             };
             this.settings.noVehicleRequirements?.forEach(req =>
+                reqi18n.hasOwnProperty(req) &&
+                this.missionSpecs?.[reqi18n[req].in][req]
+                    ? reqs[reqi18n[req].badge ? 'badge' : 'nonbadge'].push(req)
+                    : null
+            );
+            return reqs;
+        },
+        specialRequirementsBuilding() {
+            const reqi18n = (this.$m('noBuildingRequirements') as unknown) as {
+                [key: string]: {
+                    badge: boolean;
+                    text: string;
+                    in: 'prerequisites';
+                };
+            };
+            const reqs = { badge: [], nonbadge: [] } as {
+                badge: string[];
+                nonbadge: string[];
+            };
+            this.settings.noBuildingRequirements?.forEach(req =>
                 reqi18n.hasOwnProperty(req) &&
                 this.missionSpecs?.[reqi18n[req].in][req]
                     ? reqs[reqi18n[req].badge ? 'badge' : 'nonbadge'].push(req)

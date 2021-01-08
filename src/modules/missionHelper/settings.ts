@@ -12,6 +12,16 @@ export default ((MODULE_ID, LSSM, $m) => {
         noVehicleRequirements.push(key);
         noVehicleRequirementLabels.push(text);
     });
+    const noBuildingRequirements = [] as string[];
+    const noBuildingRequirementsLabels = [] as string[];
+    Object.entries(
+        ($m('noBuildingRequirements') as unknown) as {
+            [key: string]: { badge: boolean; text: string };
+        }
+    ).forEach(([key, { text }]) => {
+        noBuildingRequirements.push(key);
+        noBuildingRequirements.push(text);
+    });
     const locale = LSSM.$store.state.lang;
     return {
         'title': <Toggle>{
@@ -210,6 +220,12 @@ export default ((MODULE_ID, LSSM, $m) => {
             default: noVehicleRequirements,
             labels: noVehicleRequirementLabels,
             values: noVehicleRequirements,
+        },
+        'noBuildingRequirements': <MultiSelect>{
+            type: 'multiSelect',
+            default: noBuildingRequirements,
+            labels: noBuildingRequirementsLabels,
+            values: noBuildingRequirements,
         },
         'generatedBy': <Toggle>{
             type: 'toggle',

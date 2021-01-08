@@ -76,11 +76,13 @@ export interface MissionHelper {
         k9_only_if_needed: boolean;
         bucket_only_if_needed: boolean;
         noVehicleRequirements: string[];
+        noBuildingRequirements: string[];
 
         // General
         [key: string]: boolean | unknown;
     };
     noVehicleRequirements: string[];
+    noBuildingRequirements: string[];
     drag: {
         active: boolean;
         top: number;
